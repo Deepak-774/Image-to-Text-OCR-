@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>OCR</title>     
+        <link rel="stylesheet" href="/static/style.css">  
+    </head>
+    <body>
+        <h1>Convert Image to Text OCR</h1>
+        <div class ="row">
+            <div class="card">
+                <h2>Upload Image</h2>
+                <form action="/ocr" method="post" enctype="multipart/form-data">
+                    <label>Choose Image</label>
+                    <input id="imageInput" name="image" type="file" accept="image/*">
+                    <img id="preview" alt="Preview">
+                    <label>Select Language</label>
+                    <div id="multiLangArea">
+                        <div>
+                            <input type="checkbox" id="eng" name="langs" value="eng">
+                            <label for="eng">English</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="mar" name="langs" value="mar">
+                            <label for="mar">Marathi</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="hin" name="langs" value="hin">
+                            <label for="hin">Hindi</label>
+                        </div>
+                    </div>
+                    <button id="extractBtn" type="submit">Extract Text</button>
+                </form>
+            </div>
+            <div class="card">
+                <h2>Extracted Text</h2>
+                <textarea id="output" readonly>{{extracted_text}}</textarea>
+            </div> 
+        </div>
+        <script>
+            const imageInput= document.getElementById("imageInput");
+            const preview= document.getElementById("preview");
+
+            imageInput.addEventListener("change", function(){
+                const file = imageInput.files[0];
+                if(!file){
+                    preview.style.display = "none";
+                    preview.src = "";
+                    return;
+                }
+                else{
+                    preview.src= URL.createObjectURL(file);
+                    preview.style.display = "block";
+                }
+            });
+        </script>
+    </body>
+    
+</html>
